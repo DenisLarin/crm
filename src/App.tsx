@@ -1,26 +1,25 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import {Redirect, Route, Switch} from "react-router";
+import InstrumetnsPage from "./containers/pages/instrumentsPage/InstrumetnsPage";
+import FavouritesPage from "./containers/pages/favouritesPage/FavouritesPage";
+import Layout from "./hoc/layout/Layout";
+import Content from "./hoc/content/Content";
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Layout>
+                <Content>
+                    <Switch>
+                        <Route path='/instruments' component={InstrumetnsPage}/>
+                        <Route path='/favorites' component={FavouritesPage}/>
+                        <Redirect exact={true} from="/" to="/instruments"/>
+                    </Switch>
+                </Content>
+            </Layout>
+        </div>
+    );
 }
 
 export default App;

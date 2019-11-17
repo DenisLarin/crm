@@ -1,0 +1,33 @@
+@import "./../../constants/styles/colors";
+
+.productItem td{
+  border-bottom: 1px solid $borderItem;
+  height: 100px;
+}
+.logoContainer{
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+}
+.sponsor{
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.tickBox{
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid $menuItemColorActive;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.tickBox.active{
+  background-color: $menuItemColorActive;
+}
+

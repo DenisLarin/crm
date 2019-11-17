@@ -1,0 +1,40 @@
+@import "./../../constants/styles/colors";
+.siderbar{
+  position: fixed;
+  height: 100vh;
+  background-color: $sidebarColor;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+.navFirst{
+  ul{
+    li{
+      margin-bottom: 10px;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+.active{
+  color: $menuItemColorActive;
+  text-decoration: underline;
+}
+.navSecond{
+  ul{
+    li{
+      margin-bottom: 10px;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+.line{
+  background-color: #337ab7;
+  height: 2px;
+  width: 100%;
+}

@@ -1,0 +1,13 @@
+@import "./../../constants/styles/colors";
+
+.menuItem {
+  color: $menuItemColor;
+  display: inline-block;
+  cursor: pointer;
+}
+.menuItem:hover{
+  color: $menuItemColorActive;
+}
+.menuItem.active{
+  color: $menuItemColorActive;
+}
