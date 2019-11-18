@@ -13,6 +13,8 @@
   ul{
     li{
       margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
       &:last-child{
         margin-bottom: 0;
       }
@@ -37,4 +39,11 @@
   background-color: #337ab7;
   height: 2px;
   width: 100%;
+}
+.withNumber{
+  position: relative;
+  span{
+    position: absolute;
+    right: -35px;
+  }
 }

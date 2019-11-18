@@ -9,7 +9,7 @@ import {BrowserRouter} from 'react-router-dom'
 import {createStore, compose, combineReducers} from "redux";
 import {Provider} from 'react-redux'
 //reducers
-import favouriteReducer from './store/reducers/favourite'
+import favouriteReducer from './store/reducers/favorite'
 import filterReducer from './store/reducers/filter'
 
 declare global {
@@ -22,7 +22,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer: Reducer<any,any> = combineReducers<any>({
     filterReducer: filterReducer,
-    favouriteReducer: favouriteReducer
+    favoriteReducer: favouriteReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers());

@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import {Redirect, Route, Switch} from "react-router";
 import InstrumetnsPage from "./containers/pages/instrumentsPage/InstrumetnsPage";
-import FavouritesPage from "./containers/pages/favouritesPage/FavouritesPage";
+import FavoritesPage from "./containers/pages/favoritesPage/favoritesPage";
 import Layout from "./hoc/layout/Layout";
 import Content from "./hoc/content/Content";
 
@@ -13,7 +13,7 @@ const App: React.FC = () => {
                 <Content>
                     <Switch>
                         <Route path='/instruments' component={InstrumetnsPage}/>
-                        <Route path='/favorites' component={FavouritesPage}/>
+                        <Route path='/favorites' component={FavoritesPage}/>
                         <Redirect exact={true} from="/" to="/instruments"/>
                     </Switch>
                 </Content>

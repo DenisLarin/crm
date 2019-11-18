@@ -1,0 +1,9 @@
+@import "./../../constants/styles/colors";
+.loadMore{
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  color: $loadMoreColor;
+  cursor: pointer;
+  margin-bottom: 5px
+}

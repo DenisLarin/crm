@@ -2,15 +2,13 @@
 
 .menuItem {
   color: $menuItemColor;
-  display: inline-block;
   cursor: pointer;
-  height: 30px;
-
+  position: relative;
+  height: 42px;
 }
 .menuItem__content{
   display: flex;
   align-items: center;
-  margin-left: 20px;
 }
 .menuItem:hover{
   color: $menuItemColorActive;

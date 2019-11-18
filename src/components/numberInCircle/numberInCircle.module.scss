@@ -1,0 +1,8 @@
+@import './../../constants/styles/colors';
+.numberInCircle{
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background-color: $menuItemColorActive;
+  color: #ffffff;
+}

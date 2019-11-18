@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
 import classes from './sidebar.module.scss';
+import NumberInCircle from "../../components/numberInCircle/NumberInCircle";
+import {connect} from "react-redux";
 
-class SideBar extends Component {
+
+interface IProps {
+    selectedCompaniesCount: number;
+}
+class SideBar extends Component<IProps, {}> {
     render() {
         return (
             <div className={classes.siderbar}>
@@ -17,7 +23,7 @@ class SideBar extends Component {
                 <div className={classes.line}></div>
                 <nav className={classes.navSecond}>
                     <ul>
-                        <li><NavLink to="/favourites" activeClassName={classes.active}>Избраные</NavLink></li>
+                        <li><NavLink className={classes.withNumber} to="/favorites" activeClassName={classes.active}>Избраные {this.props.selectedCompaniesCount>0?<NumberInCircle number={this.props.selectedCompaniesCount}/> : null}</NavLink></li>
                         <li>Поиск</li>
                         <li>Кабинет агентсва</li>
                     </ul>
@@ -26,5 +32,9 @@ class SideBar extends Component {
         );
     }
 }
-
-export default SideBar;
+const mapStateToProps = (state: any)=>{
+    return{
+        selectedCompaniesCount: state.favoriteReducer.companies.length
+    }
+}
+export default connect(mapStateToProps)(SideBar);
