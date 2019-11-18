@@ -6,13 +6,15 @@ import classes from './instrumentBox.module.scss';
 import sortRequest from "../../models/sortRequest";
 import {connect} from "react-redux";
 import Menu from "../menu/Menu";
+import Preloader from "../../components/loading/Preloader";
 
 
 interface IState {
     companies: company[];
     page: number;
     isLoading: boolean;
-    sort?: sortRequest
+    sort?: sortRequest;
+    isSorting: boolean;
 }
 
 class InstrumentsBox extends Component<{}, IState> {
@@ -21,6 +23,7 @@ class InstrumentsBox extends Component<{}, IState> {
         companies: [],
         page: 0,
         isLoading: true,
+        isSorting: false,
         sort: {} as sortRequest,
 
     };
@@ -43,13 +46,11 @@ class InstrumentsBox extends Component<{}, IState> {
         let url = `https://api.cmsmagazine.ru/v1/instrumentsList?instrument_type_code=cms&page=${page + 1}`;
         if (sortParams.sortVariable && sortParams.sortPosition) {
             this.setState({
-                sort: sortParams
+                sort: sortParams,
+                isSorting: true,
             });
             url = `https://api.cmsmagazine.ru/v1/instrumentsList?sort=${sortParams.sortVariable}&sort_direction=${sortParams.sortPosition}&instrument_type_code=cms&page=${page + 1}`;
         }
-
-
-        console.log(url);
         axios.get(url).then(response => {
             const responseCompanies = response.data.data;
             const currentPage = response.data.current_page;
@@ -59,6 +60,7 @@ class InstrumentsBox extends Component<{}, IState> {
                     companies: companies,
                     page: currentPage,
                     isLoading: false,
+                    isSorting:false,
 
                 }
             });
@@ -88,26 +90,13 @@ class InstrumentsBox extends Component<{}, IState> {
         return (
             <table className={classes.table}>
                 <thead>
-                <Menu onChangeFilter={(sortRequest?: sortRequest) => this.getCompanies(sortRequest)}/>
+                <Menu isSorting={this.state.isSorting} onChangeFilter={(sortRequest?: sortRequest) => this.getCompanies(sortRequest)}/>
                 </thead>
                 <tbody>
                 {products}
                 <tr>
                     <td colSpan={30}>
-                        {this.state.isLoading ? <div className='sk-circle-bounce'>
-                            <div className='sk-child sk-circle-1'></div>
-                            <div className='sk-child sk-circle-2'></div>
-                            <div className='sk-child sk-circle-3'></div>
-                            <div className='sk-child sk-circle-4'></div>
-                            <div className='sk-child sk-circle-5'></div>
-                            <div className='sk-child sk-circle-6'></div>
-                            <div className='sk-child sk-circle-7'></div>
-                            <div className='sk-child sk-circle-8'></div>
-                            <div className='sk-child sk-circle-9'></div>
-                            <div className='sk-child sk-circle-10'></div>
-                            <div className='sk-child sk-circle-11'></div>
-                            <div className='sk-child sk-circle-12'></div>
-                        </div> : <span onClick={() => this.getCompanies()}
+                        {this.state.isLoading ? <Preloader/> : <span onClick={() => this.getCompanies()}
                                        className={classes.loadMore}>Показать еще</span>}
 
                     </td>

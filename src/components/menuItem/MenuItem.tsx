@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './menuItem.module.scss'
+import Preloader from "../loading/Preloader";
 
 interface IProps {
     isActive: boolean;
@@ -7,6 +8,7 @@ interface IProps {
     name: string;
     sortedOrder: string;
     sortedImage: string;
+    isSorting: boolean;
 }
 
 const MenuItem = (props: IProps) => {
@@ -20,6 +22,8 @@ const MenuItem = (props: IProps) => {
             {props.name}
             <br/>
             {props.isActive ? (props.sortedOrder === "asc" ? "up" : "down") : null}
+            <br/>
+            {props.isSorting ? <Preloader/> : null}
         </div>
     );
 }
