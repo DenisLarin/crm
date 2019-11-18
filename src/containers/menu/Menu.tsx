@@ -59,7 +59,7 @@ class Menu extends Component<IProps, any> {
     render() {
         const menus = this.state.menus.map((item, index) => {
 
-            return <th key={item.name} colSpan={index === 0 ? 10 : 5} style={{textAlign: "left"}}>
+            return <th key={item.name} colSpan={index === 0 ? 10 : 4} style={{textAlign: "left"}}>
                 <MenuItem
                     isActive={this.state.activeLink === item.name}
                     isSorting={(this.props.isSorting && item.name === this.state.activeLink) ? true: false}

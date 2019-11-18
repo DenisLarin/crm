@@ -4,10 +4,23 @@
   color: $menuItemColor;
   display: inline-block;
   cursor: pointer;
+  height: 30px;
+}
+.menuItem__content{
+  display: flex;
+  align-items: center;
 }
 .menuItem:hover{
   color: $menuItemColorActive;
 }
 .menuItem.active{
   color: $menuItemColorActive;
+}
+
+.icon{
+  width: 20px;
+  height: 20px;
+}
+.iconReverse{
+  transform: rotate(180deg);
 }
