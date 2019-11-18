@@ -17,14 +17,21 @@ const MenuItem = (props: IProps) => {
     if (props.isActive) {
         cls = `${classes.menuItem} ${classes.active}`
     }
+    let imgCls = classes.icon;
+    if (props.isActive){
+        if (props.sortedOrder === 'asc'){
+            imgCls = `${classes.icon} ${classes.active} ${classes.iconReverse}`;
+        }
+        else{
+            imgCls = `${classes.icon} ${classes.active}`;
+        }
+    }
     let onClickAvaliable = (props.name === "Сравнить" || props.name === 'Название') ? null : props.onClick
     return (
         <div onClick={onClickAvaliable as () => void} className={cls}>
             <div className={classes.menuItem__content}>
                 {props.name}
-                {props.isActive ? (props.sortedOrder === "asc" ?
-                    <img src={icon} className={`${classes.icon} ${classes.iconReverse}`} alt=""/> :
-                    <img src={icon} className={classes.icon} alt=""/>) : null}
+                <img src={icon} className={imgCls} alt=""/>
             </div>
             {props.isSorting ? <Preloader/> : null}
         </div>

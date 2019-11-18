@@ -3,18 +3,31 @@
 .productItem td{
   border-bottom: 1px solid $borderItem;
   height: 100px;
+  text-align: center;
+  position: relative;
 }
 .logoContainer{
   display: flex;
   align-items: center;
   position: relative;
-  padding: 10px;
+  padding: 10px 0px;
 }
 .sponsor{
   width: 15px;
   height: 15px;
   margin-right: 10px;
 }
+
+
+.tickBoxContainter{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 .tickBox{
   width: 20px;
   height: 20px;
@@ -30,4 +43,13 @@
 .tickBox.active{
   background-color: $menuItemColorActive;
 }
-
+.sponsor__text{
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  display: inline-block;
+  color: $menuItemColorActive;
+  transform-origin: center center;
+  transform: rotate(-90deg);
+  opacity: 0.5;
+}

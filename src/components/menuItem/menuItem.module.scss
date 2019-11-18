@@ -5,10 +5,12 @@
   display: inline-block;
   cursor: pointer;
   height: 30px;
+
 }
 .menuItem__content{
   display: flex;
   align-items: center;
+  margin-left: 20px;
 }
 .menuItem:hover{
   color: $menuItemColorActive;
@@ -20,6 +22,10 @@
 .icon{
   width: 20px;
   height: 20px;
+  visibility: hidden;
+}
+.icon.active{
+  visibility: visible;
 }
 .iconReverse{
   transform: rotate(180deg);

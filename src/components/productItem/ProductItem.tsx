@@ -16,16 +16,16 @@ interface IProps {
     code: string;
     url: string
     shortUrl: string;
-    onSelect: ()=>void;
+    onSelect: () => void;
 }
 
 const ProductItem = (props: IProps) => {
     const [isSelected, setSelected] = useState(false);
     let cls = classes.tickBox;
-    if (isSelected){
+    if (isSelected) {
         cls = `${classes.tickBox} ${classes.active}`
     }
-    const onselectHandler = () =>{
+    const onselectHandler = () => {
         isSelected ? setSelected(false) : setSelected(true);
         props.onSelect();
     };
@@ -47,9 +47,13 @@ const ProductItem = (props: IProps) => {
                 <span>{props.rate}</span>
             </td>
             <td colSpan={5}>
-                <div onClick={onselectHandler} className={cls}>
-                    <img src={tick} alt=""/>
+                <div className={classes.tickBoxContainter}>
+                    <div onClick={onselectHandler} className={cls}>
+                        <img src={tick} alt=""/>
+                    </div>
+                    {props.isSponsor ? <span className={classes.sponsor__text}>Спонсор</span> : null}
                 </div>
+
             </td>
 
         </tr>

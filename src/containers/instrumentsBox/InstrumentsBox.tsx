@@ -77,9 +77,6 @@ class InstrumentsBox extends Component<{}, IState> {
 
     render() {
         const products = this.state.companies.map((item: company, index) => {
-            if (index === 0) {
-                item.isSponsor = 1
-            }
             return <ProductItem key={index} title={item.title} code={item.code} img={item.image} rate={item.rate}
                                 worksCount={item.worksCount} partnersCount={item.partnersCount}
                                 shortUrl={item.shortUrl} firstLettersOfName={item.firstLettersOfName}
