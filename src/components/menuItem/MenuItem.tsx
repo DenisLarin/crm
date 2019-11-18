@@ -5,7 +5,7 @@ interface IProps {
     isActive: boolean;
     onClick: ()=>void;
     name: string;
-    sortedOrder: boolean;
+    sortedOrder: string;
     sortedImage: string;
 }
 
@@ -14,12 +14,12 @@ const MenuItem = (props: IProps) => {
     if (props.isActive){
         cls = `${classes.menuItem} ${classes.active}`
     }
-    let onClickAvaliable = props.name === "Сравнить" ? null : props.onClick
+    let onClickAvaliable = (props.name === "Сравнить" || props.name === 'Название') ? null : props.onClick
     return (
         <div onClick={onClickAvaliable as ()=>void} className={cls}>
             {props.name}
             <br/>
-            {props.isActive ? (props.sortedOrder ? "up" : "down") : null}
+            {props.isActive ? (props.sortedOrder === "asc" ? "up" : "down") : null}
         </div>
     );
 }
