@@ -4,6 +4,7 @@ import sortRequest from "../../models/sortRequest";
 
 interface IProps {
     onChangeFilter: (sortRequest?: sortRequest) => void;
+    possibleSort: boolean
 }
 
 class Menu extends Component<IProps, any> {
@@ -13,7 +14,7 @@ class Menu extends Component<IProps, any> {
             {name: "Проекты", sort: 'works_count'},
             {name: "Партнеры", sort: 'partners_count'},
             {name: "Оценка пользователей", sort: 'rate'},
-            {name: "Сравнить"},
+            {name: "Сравнить", altName: "Удалить"},
         ],
         activeMenuItem: ""
     };
@@ -34,8 +35,10 @@ class Menu extends Component<IProps, any> {
             return <th key={item.name} colSpan={5}>
                 <MenuItem
                     isActive={isActive}
-                    onClick={()=>this.onChangeActiveLink(item.name)}
-                    onChangeFilter={this.props.onChangeFilter} sortVariable={item.sort} name={item.name}
+                    onClick={() => this.onChangeActiveLink(item.name)}
+                    possibleSort={this.props.possibleSort}
+                    onChangeFilter={this.props.onChangeFilter} sortVariable={item.sort}
+                    name={(!this.props.possibleSort && item.altName) ? item.altName : item.name}
                 />
             </th>
         });

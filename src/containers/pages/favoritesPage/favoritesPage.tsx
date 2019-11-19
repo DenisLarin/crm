@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import * as actions from "../../../store/actions/actions";
 import company from "../../../models/company";
 import ProductItem from "../../../components/productItem/ProductItem";
+import classes from './../../instrumentsBox/instrumentBox.module.scss';
+import Menu from "../../menu/Menu";
 
 
 interface IProps {
@@ -15,6 +17,11 @@ class FavoritesPage extends Component<IProps, {}> {
         const selectedCompany: company = this.props.selectedCompanies[index];
         this.props.deleteFromFavorite(selectedCompany);
     };
+
+    componentDidMount() {
+        document.title = "Выбранные компании"
+    }
+
 
     render() {
         const products = this.props.selectedCompanies.map((item: company, index) => {
@@ -31,12 +38,16 @@ class FavoritesPage extends Component<IProps, {}> {
                                 url={item.url}
                                 isSelected={isSelected}
                                 onSelect={() => this.onSelect(index)}
-                                isSponsor={item.isSponsor}/>
+                                isSponsor={item.isSponsor}
+                                isRemoveBtn={true}/>
         });
         return (
             <div>
                 <h1>Выбранные компании:</h1>
-                <table style={{width: '100%', borderSpacing: '0'}}>
+                <table className={classes.table}>
+                    <thead>
+                        <Menu onChangeFilter={()=>null} possibleSort={false}/>
+                    </thead>
                     <CompanyTableView products={products}/>
                 </table>
             </div>

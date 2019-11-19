@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import classes from './menuItem.module.scss'
 import icon from './../../assets/sorted.svg';
 import sortRequest from "../../models/sortRequest";
+import {useSelector} from "react-redux";
 
 interface IProps {
     onChangeFilter: (sortRequest?: sortRequest) => void;
@@ -9,19 +10,20 @@ interface IProps {
     name: string;
     sortVariable?: string;
     isActive: boolean;
+    possibleSort: boolean;
 
 }
 
 const MenuItem = (props: IProps) => {
     const [isActive, setActive] = useState(props.isActive);
     const [sortedOrder, setSortedOrder] = useState("");
-    console.log("menuItem");
+    const isMakingRequest = useSelector((state: any) => state.requestReducer.isMakingRequest);
     let cls = classes.menuItem;
-    if (isActive) {
+    if (isActive && props.possibleSort) {
         cls = `${classes.menuItem} ${classes.active}`
     }
     let imgCls = classes.icon;
-    if (isActive) {
+    if (isActive && props.possibleSort) {
         if (sortedOrder === 'asc') {
             imgCls = `${classes.icon} ${classes.active} ${classes.iconReverse}`;
         } else {
@@ -34,6 +36,9 @@ const MenuItem = (props: IProps) => {
     }, [props.isActive]);
 
     const onClick = () => {
+        if (isMakingRequest){
+            return null;
+        }
         props.onClick();
         let sortProsition = "";
         let tempIsActive = false;
@@ -42,19 +47,16 @@ const MenuItem = (props: IProps) => {
             tempIsActive = true;
             sortProsition = "asc";
             setActive(true);
-            console.log(1);
         } else if (sortedOrder === "asc") {
             tempIsActive = true;
             sortProsition = "desc";
             setSortedOrder("desc");
-            console.log(2);
         } else {
             tempIsActive = false;
             sortProsition = "";
             setSortedOrder("");
             setActive(false);
-            props.onChangeFilter({sortVariable: "", sortPosition: ""})
-            console.log(3);
+            props.onChangeFilter({sortVariable: "clean", sortPosition: ""})
         }
 
         if (tempIsActive && props.sortVariable) {
@@ -66,7 +68,7 @@ const MenuItem = (props: IProps) => {
         }
     };
     const arrowAvaliable = !(props.name === "Сравнить" || props.name === 'Название');
-    const onClickAvaliable = (props.name === "Сравнить" || props.name === 'Название') ? null : onClick;
+    const onClickAvaliable = (props.name === "Сравнить" || props.name === 'Название') || !props.possibleSort ? null : onClick;
     return (
         <div onClick={onClickAvaliable as () => void} className={cls}>
             <div className={classes.menuItem__content}>

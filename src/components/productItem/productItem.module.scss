@@ -53,3 +53,16 @@
   transform: rotate(-90deg);
   opacity: 0.5;
 }
+
+.removeBtn{
+  border: 1px solid $menuItemColorActive;
+  color: $menuItemColorActive;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover{
+    background-color: $menuItemColorActive;
+    color: #ffffff;
+  }
+}

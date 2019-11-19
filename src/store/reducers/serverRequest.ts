@@ -1,19 +1,18 @@
 import * as actionTypes from './../actions/actionTypes';
-import sortRequest from "../../models/sortRequest";
 
 
 const initState = {
-    sortRequest: undefined
+    isMakingRequest: false
 };
 
-const makeFiteredRequest = (state: object, sortRequest: sortRequest)=>{
-    return {sortRequest: sortRequest};
+const makeFiteredRequest = (state: object, isMakingRequest: boolean)=>{
+    return {isMakingRequest: isMakingRequest};
 };
 
 const reducer = (state = initState, action: any) => {
     switch (action.type) {
         case actionTypes.MAKE_FILTERED_REQUEST:{
-            return  makeFiteredRequest(state, action.payload as sortRequest);
+            return  makeFiteredRequest(state, action.payload);
         }
         default:
             return state;

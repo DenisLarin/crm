@@ -3,7 +3,7 @@ import classes from './productItem.module.scss'
 import sponsor from './../../assets/iconfinder_star_115793.svg'
 import CompanyLogo from "../companyLogo/CompanyLogo";
 import tick from './../../assets/tick.svg';
-
+import {withRouter} from "react-router";
 
 interface IProps {
     isSponsor: number;
@@ -18,6 +18,8 @@ interface IProps {
     shortUrl: string;
     onSelect: () => void;
     isSelected: boolean;
+    history: any;
+    isRemoveBtn?: boolean;
 }
 
 
@@ -40,9 +42,14 @@ const ProductItem = (props: IProps) => {
             return 'ов'
         }
     };
+
+    const onCompanyClick = () => {
+        props.history.push(`/instrument/${props.code}`);
+
+    };
     return (
         <tr className={classes.productItem}>
-            <td colSpan={5}>
+            <td colSpan={5} onClick={onCompanyClick} style={{cursor: "pointer"}}>
                 <div className={classes.logoContainer}>
                     {props.isSponsor ? <img className={classes.sponsor} src={sponsor} alt=""/> : null}
                     {props.img ? <CompanyLogo img={props.img}/> : props.firstLettersOfName}
@@ -58,15 +65,19 @@ const ProductItem = (props: IProps) => {
                 {props.rate}
             </td>
             <td colSpan={5}>
-                <div className={classes.tickBoxContainter}>
+                {props.isRemoveBtn ? <div className={classes.removeBtn} onClick={props.onSelect}>
+                        удалить
+                    </div> :
+                    <div className={classes.tickBoxContainter}>
                     <div onClick={props.onSelect} className={cls}>
-                        <img src={tick} alt=""/>
+                    <img src={tick} alt=""/>
                     </div>
                     {props.isSponsor ? <span className={classes.sponsor__text}>Спонсор</span> : null}
-                </div>
+                    </div>
+                }
             </td>
         </tr>
     );
 }
 
-export default ProductItem;
+export default withRouter<any, any>(ProductItem);

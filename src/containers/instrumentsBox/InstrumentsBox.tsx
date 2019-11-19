@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ProductItem from "../../components/productItem/ProductItem";
-import axios from 'axios'
+import axios from 'axios';
 import company from "../../models/company";
 import classes from './instrumentBox.module.scss';
 import sortRequest from "../../models/sortRequest";
@@ -22,6 +22,7 @@ interface IProps {
     addToFavorite: (company: company) => void;
     deleteFromFavorite: (company: company) => void;
     selectedCompanies: company[];
+    changeRequestStatus: (isMakingRequest: boolean)=>void;
 }
 
 class InstrumentsBox extends Component<IProps, IState> {
@@ -30,6 +31,7 @@ class InstrumentsBox extends Component<IProps, IState> {
         page: 0,
         isLoading: true,
         sort: {} as sortRequest,
+        isMakingRequest: false
     };
 
     componentDidMount() {
@@ -41,38 +43,37 @@ class InstrumentsBox extends Component<IProps, IState> {
         let page = this.state.page;
         let companies = this.state.companies;
         let sortParams = this.state.sort;
-
         if (sort) {
             companies = [];
             page = 0;
+            this.setState({
+                companies: []
+            });
             sortParams = sort;
         }
         let url = `https://api.cmsmagazine.ru/v1/instrumentsList?instrument_type_code=cms&page=${page + 1}`;
         if (sortParams.sortVariable && sortParams.sortPosition) {
-            if (page === 0) {
-                this.setState({
-                    companies: []
-                })
-            }
             this.setState({
                 sort: sortParams,
             });
             url = `https://api.cmsmagazine.ru/v1/instrumentsList?sort=${sortParams.sortVariable}&sort_direction=${sortParams.sortPosition}&instrument_type_code=cms&page=${page + 1}`;
         }
+        this.props.changeRequestStatus(true);
         axios.get(url).then(response => {
             const responseCompanies = response.data.data;
             const currentPage = response.data.current_page;
             companies = companies.concat(responseCompanies);
+            this.props.changeRequestStatus(false);
             this.setState(state => {
                 return {
                     companies: companies,
                     page: currentPage,
                     isLoading: false,
                     isSorting: false,
-
                 }
             });
         }).catch(error => {
+            this.props.changeRequestStatus(false);
             console.log(error);
         });
 
@@ -120,8 +121,8 @@ class InstrumentsBox extends Component<IProps, IState> {
             <div>
                 <table className={classes.table}>
                     <thead>
-                    <Menu
-                        onChangeFilter={(sortRequest?: sortRequest) => this.getCompanies(sortRequest)}/>
+                    <Menu possibleSort={true}
+                          onChangeFilter={(sortRequest?: sortRequest) => this.getCompanies(sortRequest)}/>
                     </thead>
                     <CompanyTableView products={products}/>
                 </table>
@@ -136,6 +137,7 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
         addToFavorite: (company: company) => dispatch(actions.addToFavorite(company)),
         deleteFromFavorite: (company: company) => dispatch(actions.deleteFromFavorite(company)),
+        changeRequestStatus: (isMakingRequest: boolean)=>dispatch(actions.changeRequestStatus(isMakingRequest))
     }
 };
 const mapStateToProps = (state: any) => {
