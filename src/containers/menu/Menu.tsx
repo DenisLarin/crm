@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import MenuItem from "../../components/menuItem/MenuItem";
 import sortedImage from '../../assets/sortedDown.svg'
-import classes from './menu.module.scss'
 import sortRequest from "../../models/sortRequest";
 
 interface IProps {
@@ -68,7 +67,7 @@ class Menu extends Component<IProps, any> {
                     sortedImage={sortedImage}/></th>
         });
         return (
-            <tr className={classes.menu}>
+            <tr>
                 {menus}
             </tr>
         );

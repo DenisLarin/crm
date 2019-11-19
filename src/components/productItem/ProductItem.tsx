@@ -34,7 +34,7 @@ const ProductItem = (props: IProps) => {
                 </div>
             </td>
             <td colSpan={5}>
-                <span>{props.worksCount}</span>
+                <span>{props.worksCount} проект{props.worksCount % 10 === 1 ? null  : ([2,3,4].indexOf(props.worksCount % 10) !== -1) ? 'a' : 'ов'}</span>
             </td>
             <td colSpan={5}>
                 <span>{props.partnersCount}</span>

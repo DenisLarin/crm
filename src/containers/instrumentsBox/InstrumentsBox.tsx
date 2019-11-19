@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ProductItem from "../../components/productItem/ProductItem";
 import axios from 'axios'
 import company from "../../models/company";
 import classes from './instrumentBox.module.scss';
 import sortRequest from "../../models/sortRequest";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import Menu from "../menu/Menu";
 import CompanyTableView from "../../components/companyTableView/CompanyTableView";
 import * as actions from './../../store/actions/actions'
@@ -39,7 +39,7 @@ class InstrumentsBox extends Component<IProps, IState> {
     }
 
     getCompanies = (sort?: sortRequest) => {
-        this.setState({isLoading: true});
+        this.setState({ isLoading: true });
         let page = this.state.page;
         let companies = this.state.companies;
         let sortParams = this.state.sort;
@@ -99,21 +99,21 @@ class InstrumentsBox extends Component<IProps, IState> {
                 isSelected = true;
             }
             return <ProductItem key={index} title={item.title} code={item.code} img={item.image} rate={item.rate}
-                                worksCount={item.worksCount} partnersCount={item.partnersCount}
-                                shortUrl={item.shortUrl} firstLettersOfName={item.firstLettersOfName}
-                                url={item.url}
-                                isSelected={isSelected}
-                                onSelect={() => this.onSelect(index)}
-                                isSponsor={item.isSponsor}/>
+                worksCount={item.worksCount} partnersCount={item.partnersCount}
+                shortUrl={item.shortUrl} firstLettersOfName={item.firstLettersOfName}
+                url={item.url}
+                isSelected={isSelected}
+                onSelect={() => this.onSelect(index)}
+                isSponsor={item.isSponsor} />
         });
         return (
             <table className={classes.table}>
                 <thead>
-                <Menu isSorting={this.state.isSorting}
-                      onChangeFilter={(sortRequest?: sortRequest) => this.getCompanies(sortRequest)}/>
+                    <Menu isSorting={this.state.isSorting}
+                        onChangeFilter={(sortRequest?: sortRequest) => this.getCompanies(sortRequest)} />
                 </thead>
                 <CompanyTableView products={products} isLoading={this.state.isLoading}
-                                  loadMore={() => this.getCompanies()} isNeedLoadMore={true}/>
+                    loadMore={() => this.getCompanies()} isNeedLoadMore={true} />
             </table>
         );
     }
