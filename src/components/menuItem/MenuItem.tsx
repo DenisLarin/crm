@@ -9,7 +9,6 @@ interface IProps {
     name: string;
     sortedOrder: string;
     sortedImage: string;
-    isSorting: boolean;
 }
 
 const MenuItem = (props: IProps) => {
@@ -18,11 +17,10 @@ const MenuItem = (props: IProps) => {
         cls = `${classes.menuItem} ${classes.active}`
     }
     let imgCls = classes.icon;
-    if (props.isActive){
-        if (props.sortedOrder === 'asc'){
+    if (props.isActive) {
+        if (props.sortedOrder === 'asc') {
             imgCls = `${classes.icon} ${classes.active} ${classes.iconReverse}`;
-        }
-        else{
+        } else {
             imgCls = `${classes.icon} ${classes.active}`;
         }
     }
@@ -33,7 +31,6 @@ const MenuItem = (props: IProps) => {
                 {props.name}
                 <img src={icon} className={imgCls} alt=""/>
             </div>
-            {props.isSorting ? <Preloader/> : null}
         </div>
     );
 }

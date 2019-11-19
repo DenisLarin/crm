@@ -5,7 +5,6 @@ import sortRequest from "../../models/sortRequest";
 
 interface IProps {
     onChangeFilter: (sortRequest?: sortRequest) => void;
-    isSorting?: boolean;
 }
 
 class Menu extends Component<IProps, any> {
@@ -58,10 +57,9 @@ class Menu extends Component<IProps, any> {
     render() {
         const menus = this.state.menus.map((item, index) => {
 
-            return <th key={item.name} colSpan={index === 0 ? 10 : 5}>
+            return <th key={item.name} colSpan={index === 0 ? 6 : 5}>
                 <MenuItem
                     isActive={this.state.activeLink === item.name}
-                    isSorting={(this.props.isSorting && item.name === this.state.activeLink) ? true: false}
                     sortedOrder={this.state.sortedPosition}
                     onClick={() => this.onMenuClick(item.name)} name={item.name}
                     sortedImage={sortedImage}/></th>

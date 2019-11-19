@@ -37,7 +37,7 @@ class FavoritesPage extends Component<IProps, {}> {
             <div>
                 <h1>Выбранные компании:</h1>
                 <table style={{width: '100%', borderSpacing: '0'}}>
-                    <CompanyTableView products={products} isNeedLoadMore={false} isLoading={false}/>
+                    <CompanyTableView products={products}/>
                 </table>
             </div>
         );

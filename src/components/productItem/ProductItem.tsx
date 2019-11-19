@@ -20,27 +20,42 @@ interface IProps {
     isSelected: boolean;
 }
 
+
 const ProductItem = (props: IProps) => {
     let cls = classes.tickBox;
     if (props.isSelected) {
         cls = `${classes.tickBox} ${classes.active}`
     }
+    const addWordToNumber = (count: number) => {
+        const lastTwoNumbers = count % 100;
+        const lastNumber = lastTwoNumbers % 10;
+
+        if (lastTwoNumbers >= 11 && lastTwoNumbers <= 14) {
+            return 'ов'
+        } else if (lastNumber === 1) {
+            return null;
+        } else if (lastNumber >= 2 && lastNumber <= 4) {
+            return 'а'
+        } else {
+            return 'ов'
+        }
+    };
     return (
         <tr className={classes.productItem}>
-            <td colSpan={10}>
+            <td colSpan={6}>
                 <div className={classes.logoContainer}>
                     {props.isSponsor ? <img className={classes.sponsor} src={sponsor} alt=""/> : null}
                     {props.img ? <CompanyLogo img={props.img}/> : props.firstLettersOfName}
                 </div>
             </td>
             <td colSpan={5}>
-                <span>{props.worksCount} проект{props.worksCount % 10 === 1 ? null  : ([2,3,4].indexOf(props.worksCount % 10) !== -1) ? 'a' : 'ов'}</span>
+                {props.worksCount} проект{addWordToNumber(props.worksCount)}
             </td>
             <td colSpan={5}>
-                <span>{props.partnersCount}</span>
+                {props.partnersCount ? props.partnersCount : 0} партнер{addWordToNumber(props.partnersCount)}
             </td>
             <td colSpan={5}>
-                <span>{props.rate}</span>
+                {props.rate}
             </td>
             <td colSpan={5}>
                 <div className={classes.tickBoxContainter}>
