@@ -30,9 +30,10 @@ class Menu extends Component<IProps, any> {
 
     render() {
         const menus = this.state.menus.map((item) => {
+            const isActive = this.state.activeMenuItem === item.name;
             return <th key={item.name} colSpan={5}>
                 <MenuItem
-                    isActive={this.state.activeMenuItem === item.name}
+                    isActive={isActive}
                     onClick={()=>this.onChangeActiveLink(item.name)}
                     onChangeFilter={this.props.onChangeFilter} sortVariable={item.sort} name={item.name}
                 />
