@@ -13,7 +13,7 @@ const makeFiteredRequest = (state: object, sortRequest: sortRequest)=>{
 const reducer = (state = initState, action: any) => {
     switch (action.type) {
         case actionTypes.MAKE_FILTERED_REQUEST:{
-            return  makeFiteredRequest(state, action.payload);
+            return  makeFiteredRequest(state, action.payload as sortRequest);
         }
         default:
             return state;

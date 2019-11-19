@@ -47,7 +47,6 @@ class InstrumentsBox extends Component<IProps, IState> {
             page = 0;
             sortParams = sort;
         }
-        console.log(page);
         let url = `https://api.cmsmagazine.ru/v1/instrumentsList?instrument_type_code=cms&page=${page + 1}`;
         if (sortParams.sortVariable && sortParams.sortPosition) {
             if (page === 0) {
@@ -92,23 +91,31 @@ class InstrumentsBox extends Component<IProps, IState> {
         }
     };
 
+    renderProductItems = () => {
+        let products = null;
+        if (this.state.companies.length > 0) {
+            products = this.state.companies.map((item: company, index) => {
+                let isSelected = false;
+                const currentCompanyId = item.id;
+                if (this.props.selectedCompanies.filter((item: company) => {
+                    return item.id === currentCompanyId;
+                }).length > 0) {
+                    isSelected = true;
+                }
+                return <ProductItem key={index} title={item.title} code={item.code} img={item.image} rate={item.rate}
+                                    worksCount={item.worksCount} partnersCount={item.partnersCount}
+                                    shortUrl={item.shortUrl} firstLettersOfName={item.firstLettersOfName}
+                                    url={item.url}
+                                    isSelected={isSelected}
+                                    onSelect={() => this.onSelect(index)}
+                                    isSponsor={item.isSponsor}/>
+            });
+        }
+        return products;
+    };
+
     render() {
-        const products = this.state.companies.map((item: company, index) => {
-            let isSelected = false;
-            const currentCompanyId = item.id;
-            if (this.props.selectedCompanies.filter((item: company) => {
-                return item.id === currentCompanyId;
-            }).length > 0) {
-                isSelected = true;
-            }
-            return <ProductItem key={index} title={item.title} code={item.code} img={item.image} rate={item.rate}
-                                worksCount={item.worksCount} partnersCount={item.partnersCount}
-                                shortUrl={item.shortUrl} firstLettersOfName={item.firstLettersOfName}
-                                url={item.url}
-                                isSelected={isSelected}
-                                onSelect={() => this.onSelect(index)}
-                                isSponsor={item.isSponsor}/>
-        });
+        let products = this.renderProductItems();
         return (
             <div>
                 <table className={classes.table}>

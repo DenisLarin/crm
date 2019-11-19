@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import {Redirect, Route, Switch} from "react-router";
 import InstrumetnsPage from "./containers/pages/instrumentsPage/InstrumetnsPage";
 import FavoritesPage from "./containers/pages/favoritesPage/favoritesPage";

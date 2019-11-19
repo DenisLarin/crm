@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import MenuItem from "../../components/menuItem/MenuItem";
-import sortedImage from '../../assets/sortedDown.svg'
 import sortRequest from "../../models/sortRequest";
 
 interface IProps {
@@ -16,53 +15,28 @@ class Menu extends Component<IProps, any> {
             {name: "Оценка пользователей", sort: 'rate'},
             {name: "Сравнить"},
         ],
-        activeLink: "",
-        sortedPosition: "",
-        thWidth: 0
+        activeMenuItem: ""
     };
-    onMenuClick = (name: string) => {
-        let activeLink = name;
-        let sortProsition = "";
-        if (this.state.activeLink === name) {
-            if (this.state.sortedPosition === "asc") {
-                sortProsition = "";
-                this.setState({activeLink: "", sortedPosition: ""})
-            } else {
-                sortProsition = "asc";
-                this.setState({sortedPosition: "asc"});
-            }
-        } else {
-            sortProsition = "desc";
-            this.setState({activeLink: name, sortedPosition: "desc"});
-        }
 
-        if (activeLink && sortProsition) {
-            const sort = this.state.menus.filter(item => {
-                return item.name === activeLink;
-            });
+    shouldComponentUpdate(nextProps: Readonly<IProps>, nextState: Readonly<any>, nextContext: any): boolean {
+        return this.state.activeMenuItem !== nextState.activeMenuItem;
+    }
 
-            const sortRequest: sortRequest = {
-                sortPosition: sortProsition,
-                sortVariable: sort[0].sort as string,
-            };
-            this.props.onChangeFilter(sortRequest);
-        } else {
-            const emptySortRequest: sortRequest = {
-                sortPosition: "",
-                sortVariable: "",
-            };
-            this.props.onChangeFilter(emptySortRequest);
+    onChangeActiveLink = (name: string) => {
+        if (this.state.activeMenuItem !== name) {
+            this.setState({activeMenuItem: name});
         }
     };
 
     render() {
-        const menus = this.state.menus.map((item, index) => {
+        const menus = this.state.menus.map((item) => {
             return <th key={item.name} colSpan={5}>
                 <MenuItem
-                    isActive={this.state.activeLink === item.name}
-                    sortedOrder={this.state.sortedPosition}
-                    onClick={() => this.onMenuClick(item.name)} name={item.name}
-                    sortedImage={sortedImage}/></th>
+                    isActive={this.state.activeMenuItem === item.name}
+                    onClick={()=>this.onChangeActiveLink(item.name)}
+                    onChangeFilter={this.props.onChangeFilter} sortVariable={item.sort} name={item.name}
+                />
+            </th>
         });
         return (
             <tr>

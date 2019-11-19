@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classes from './productItem.module.scss'
 import sponsor from './../../assets/iconfinder_star_115793.svg'
 import CompanyLogo from "../companyLogo/CompanyLogo";
