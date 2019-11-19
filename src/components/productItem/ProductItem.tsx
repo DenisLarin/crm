@@ -42,7 +42,7 @@ const ProductItem = (props: IProps) => {
     };
     return (
         <tr className={classes.productItem}>
-            <td colSpan={6}>
+            <td colSpan={5}>
                 <div className={classes.logoContainer}>
                     {props.isSponsor ? <img className={classes.sponsor} src={sponsor} alt=""/> : null}
                     {props.img ? <CompanyLogo img={props.img}/> : props.firstLettersOfName}

@@ -17,7 +17,8 @@ class Menu extends Component<IProps, any> {
             {name: "Сравнить"},
         ],
         activeLink: "",
-        sortedPosition: ""
+        sortedPosition: "",
+        thWidth: 0
     };
     onMenuClick = (name: string) => {
         let activeLink = name;
@@ -56,8 +57,7 @@ class Menu extends Component<IProps, any> {
 
     render() {
         const menus = this.state.menus.map((item, index) => {
-
-            return <th key={item.name} colSpan={index === 0 ? 6 : 5}>
+            return <th key={item.name} colSpan={5}>
                 <MenuItem
                     isActive={this.state.activeLink === item.name}
                     sortedOrder={this.state.sortedPosition}

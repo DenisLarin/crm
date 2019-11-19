@@ -25,7 +25,6 @@ interface IProps {
 }
 
 class InstrumentsBox extends Component<IProps, IState> {
-
     state = {
         companies: [],
         page: 0,
@@ -48,11 +47,16 @@ class InstrumentsBox extends Component<IProps, IState> {
             page = 0;
             sortParams = sort;
         }
+        console.log(page);
         let url = `https://api.cmsmagazine.ru/v1/instrumentsList?instrument_type_code=cms&page=${page + 1}`;
         if (sortParams.sortVariable && sortParams.sortPosition) {
+            if (page === 0) {
+                this.setState({
+                    companies: []
+                })
+            }
             this.setState({
                 sort: sortParams,
-                companies: []
             });
             url = `https://api.cmsmagazine.ru/v1/instrumentsList?sort=${sortParams.sortVariable}&sort_direction=${sortParams.sortPosition}&instrument_type_code=cms&page=${page + 1}`;
         }

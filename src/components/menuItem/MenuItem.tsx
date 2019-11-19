@@ -24,12 +24,13 @@ const MenuItem = (props: IProps) => {
             imgCls = `${classes.icon} ${classes.active}`;
         }
     }
-    let onClickAvaliable = (props.name === "Сравнить" || props.name === 'Название') ? null : props.onClick
+    const arrowAvaliable = !(props.name === "Сравнить" || props.name === 'Название');
+    const onClickAvaliable = (props.name === "Сравнить" || props.name === 'Название') ? null : props.onClick
     return (
         <div onClick={onClickAvaliable as () => void} className={cls}>
             <div className={classes.menuItem__content}>
-                {props.name}
-                <img src={icon} className={imgCls} alt=""/>
+                <span>{props.name}</span>
+                {arrowAvaliable ? <img src={icon} className={imgCls} alt=""/> : null}
             </div>
         </div>
     );
