@@ -44,7 +44,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 
-##Структура проекта:
+## Структура проекта:
     /src/assets -- папка с иконками
     /src/components -- папка с компонентами
         &/companyLogo -- Логотип компании (продукта)
