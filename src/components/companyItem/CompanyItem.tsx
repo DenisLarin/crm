@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './productItem.module.scss'
+import classes from './companyItem.module.scss'
 import sponsor from './../../assets/iconfinder_star_115793.svg'
 import CompanyLogo from "../companyLogo/CompanyLogo";
 import tick from './../../assets/tick.svg';
@@ -23,11 +23,14 @@ interface IProps {
 }
 
 
-const ProductItem = (props: IProps) => {
+const CompanyItem = (props: IProps) => {
+
+    //формирование классов
     let cls = classes.tickBox;
     if (props.isSelected) {
         cls = `${classes.tickBox} ${classes.active}`
     }
+    //добавление окончаний в слова рядом с цифрами
     const addWordToNumber = (count: number) => {
         const lastTwoNumbers = count % 100;
         const lastNumber = lastTwoNumbers % 10;
@@ -42,6 +45,7 @@ const ProductItem = (props: IProps) => {
             return 'ов'
         }
     };
+
 
     const onCompanyClick = () => {
         props.history.push(`/instrument/${props.code}`);
@@ -69,10 +73,10 @@ const ProductItem = (props: IProps) => {
                         удалить
                     </div> :
                     <div className={classes.tickBoxContainter}>
-                    <div onClick={props.onSelect} className={cls}>
-                    <img src={tick} alt=""/>
-                    </div>
-                    {props.isSponsor ? <span className={classes.sponsor__text}>Спонсор</span> : null}
+                        <div onClick={props.onSelect} className={cls}>
+                            <img src={tick} alt=""/>
+                        </div>
+                        {props.isSponsor ? <span className={classes.sponsor__text}>Спонсор</span> : null}
                     </div>
                 }
             </td>
@@ -80,4 +84,4 @@ const ProductItem = (props: IProps) => {
     );
 }
 
-export default withRouter<any, any>(ProductItem);
+export default withRouter<any, any>(CompanyItem);

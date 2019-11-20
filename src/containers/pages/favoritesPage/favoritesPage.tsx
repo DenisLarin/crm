@@ -3,7 +3,7 @@ import CompanyTableView from "../../../components/companyTableView/CompanyTableV
 import {connect} from "react-redux";
 import * as actions from "../../../store/actions/actions";
 import company from "../../../models/company";
-import ProductItem from "../../../components/productItem/ProductItem";
+import ProductItem from "../../../components/companyItem/CompanyItem";
 import classes from './../../instrumentsBox/instrumentBox.module.scss';
 import Menu from "../../menu/Menu";
 
@@ -13,16 +13,17 @@ interface IProps {
     deleteFromFavorite: (company: company)=>void;
 }
 class FavoritesPage extends Component<IProps, {}> {
-    onSelect = (index: number) => {
-        const selectedCompany: company = this.props.selectedCompanies[index];
-        this.props.deleteFromFavorite(selectedCompany);
-    };
+
 
     componentDidMount() {
         document.title = "Выбранные компании"
     }
 
-
+    //удаление из избранного
+    onDeleteClick = (index: number) => {
+        const selectedCompany: company = this.props.selectedCompanies[index];
+        this.props.deleteFromFavorite(selectedCompany);
+    };
     render() {
         const products = this.props.selectedCompanies.map((item: company, index) => {
             let isSelected = false;
@@ -37,7 +38,7 @@ class FavoritesPage extends Component<IProps, {}> {
                                 shortUrl={item.shortUrl} firstLettersOfName={item.firstLettersOfName}
                                 url={item.url}
                                 isSelected={isSelected}
-                                onSelect={() => this.onSelect(index)}
+                                onSelect={() => this.onDeleteClick(index)}
                                 isSponsor={item.isSponsor}
                                 isRemoveBtn={true}/>
         });

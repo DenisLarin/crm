@@ -19,10 +19,12 @@ class Menu extends Component<IProps, any> {
         activeMenuItem: ""
     };
 
+
     shouldComponentUpdate(nextProps: Readonly<IProps>, nextState: Readonly<any>, nextContext: any): boolean {
         return this.state.activeMenuItem !== nextState.activeMenuItem;
     }
 
+    //изменение активного заголовка
     onChangeActiveLink = (name: string) => {
         if (this.state.activeMenuItem !== name) {
             this.setState({activeMenuItem: name});

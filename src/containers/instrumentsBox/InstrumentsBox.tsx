@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ProductItem from "../../components/productItem/ProductItem";
+import ProductItem from "../../components/companyItem/CompanyItem";
 import axios from 'axios';
 import company from "../../models/company";
 import classes from './instrumentBox.module.scss';
@@ -38,6 +38,7 @@ class InstrumentsBox extends Component<IProps, IState> {
         this.getCompanies();
     }
 
+    //функция запроса получения данных
     getCompanies = (sort?: sortRequest) => {
         this.setState({isLoading: true});
         let page = this.state.page;
@@ -80,6 +81,7 @@ class InstrumentsBox extends Component<IProps, IState> {
 
     };
 
+    //функция добавления компании в избранное
     onSelect = (index: number) => {
         const selectedCompany: company = this.state.companies[index];
         const currentSelectedCompanies = this.props.selectedCompanies;
@@ -92,10 +94,12 @@ class InstrumentsBox extends Component<IProps, IState> {
         }
     };
 
+
     renderProductItems = () => {
         let products = null;
         if (this.state.companies.length > 0) {
             products = this.state.companies.map((item: company, index) => {
+                //проверка компанию на наличие в избраном
                 let isSelected = false;
                 const currentCompanyId = item.id;
                 if (this.props.selectedCompanies.filter((item: company) => {
@@ -144,6 +148,6 @@ const mapStateToProps = (state: any) => {
     return {
         selectedCompanies: state.favoriteReducer.companies,
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(InstrumentsBox);

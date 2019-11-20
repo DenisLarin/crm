@@ -15,15 +15,18 @@ interface IProps {
 }
 
 const MenuItem = (props: IProps) => {
+    //выбран ли заголовок
     const [isActive, setActive] = useState(props.isActive);
+    //порядок сортировки
     const [sortedOrder, setSortedOrder] = useState("");
+    //redux хук, для блокировки множественных нажатий на заголовок, во время выполнения запроса
     const isMakingRequest = useSelector((state: any) => state.requestReducer.isMakingRequest);
+
+    //формирование классов
     let cls = classes.menuItem;
-    if (isActive && props.possibleSort) {
-        cls = `${classes.menuItem} ${classes.active}`
-    }
     let imgCls = classes.icon;
     if (isActive && props.possibleSort) {
+        cls = `${classes.menuItem} ${classes.active}`
         if (sortedOrder === 'asc') {
             imgCls = `${classes.icon} ${classes.active} ${classes.iconReverse}`;
         } else {
@@ -31,14 +34,18 @@ const MenuItem = (props: IProps) => {
         }
     }
 
+
+    //переключение активного заголовка при нажатии на новый заголовок
     useEffect(() => {
         setActive(props.isActive);
     }, [props.isActive]);
+
 
     const onClick = () => {
         if (isMakingRequest){
             return null;
         }
+
         props.onClick();
         let sortProsition = "";
         let tempIsActive = false;
@@ -63,11 +70,13 @@ const MenuItem = (props: IProps) => {
             const sortRequest: sortRequest = {
                 sortPosition: sortProsition,
                 sortVariable: props.sortVariable
-            }
+            };
             props.onChangeFilter(sortRequest);
         }
     };
+    //у каких элементов будет доступна стрелка сортировки
     const arrowAvaliable = !(props.name === "Сравнить" || props.name === 'Название');
+    //у каких компонентов будет доступна функция клика
     const onClickAvaliable = (props.name === "Сравнить" || props.name === 'Название') || !props.possibleSort ? null : onClick;
     return (
         <div onClick={onClickAvaliable as () => void} className={cls}>

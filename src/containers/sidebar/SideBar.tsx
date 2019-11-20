@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 interface IProps {
     selectedCompaniesCount: number;
 }
+
 class SideBar extends Component<IProps, {}> {
     render() {
         return (
@@ -23,7 +24,9 @@ class SideBar extends Component<IProps, {}> {
                 <div className={classes.line}></div>
                 <nav className={classes.navSecond}>
                     <ul>
-                        <li><NavLink className={classes.withNumber} to="/favorites" activeClassName={classes.active}>Избраные {this.props.selectedCompaniesCount>0?<NumberInCircle number={this.props.selectedCompaniesCount}/> : null}</NavLink></li>
+                        <li><NavLink className={classes.withNumber} to="/favorites"
+                                     activeClassName={classes.active}>Избраные {this.props.selectedCompaniesCount > 0 ?
+                            <NumberInCircle number={this.props.selectedCompaniesCount}/> : null}</NavLink></li>
                         <li>Поиск</li>
                         <li>Кабинет агентсва</li>
                     </ul>
@@ -32,8 +35,9 @@ class SideBar extends Component<IProps, {}> {
         );
     }
 }
-const mapStateToProps = (state: any)=>{
-    return{
+
+const mapStateToProps = (state: any) => {
+    return {
         selectedCompaniesCount: state.favoriteReducer.companies.length
     }
 }
